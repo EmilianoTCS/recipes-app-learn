@@ -8,10 +8,10 @@ import FavoriteButton from "@/components/recipe/FavoriteButton";
 export const revalidate = 3600; // Revalidar datos cada hora
 
 // Generar metadatos para SEO
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { id: string } 
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
 }) {
   const meal = await getMealById(params.id);
 
@@ -27,15 +27,13 @@ export async function generateMetadata({
   };
 }
 
-// Definir los tipos para las props de la página según App Router
-type Props = {
+interface RecipeDetailPageProps {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function RecipeDetailPage({
   params,
-}: Props) {
+}: RecipeDetailPageProps) {
   const meal = await getMealById(params.id);
 
   if (!meal) {
@@ -51,7 +49,6 @@ export default async function RecipeDetailPage({
 
   const ingredients = formatMealIngredients(meal);
 
-  // Dividir las instrucciones en pasos si están separadas por puntos o numeradas
   const instructionSteps = meal.strInstructions
     .split(/\r\n|\n|\r|\./)
     .filter((step) => step.trim() !== "")
@@ -60,10 +57,7 @@ export default async function RecipeDetailPage({
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <Link
-          href="/"
-          className="inline-flex items-center text-cream"
-        >
+        <Link href="/" className="inline-flex items-center text-cream">
           <ArrowLeft size={20} className="mr-1" />
           Volver a recetas
         </Link>
