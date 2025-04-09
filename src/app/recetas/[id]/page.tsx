@@ -27,16 +27,15 @@ export async function generateMetadata({
   };
 }
 
-// Define los tipos correctos para los parámetros
-type RecipeDetailPageProps = {
-  params: {
-    id: string;
-  };
+// Definir los tipos para las props de la página según App Router
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function RecipeDetailPage({
   params,
-}: RecipeDetailPageProps) {
+}: Props) {
   const meal = await getMealById(params.id);
 
   if (!meal) {
