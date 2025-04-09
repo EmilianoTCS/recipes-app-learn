@@ -55,7 +55,7 @@ export interface MealDetails extends Meal {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
-  [key: string]: any;
+  [key: string]: string | number | undefined;
 }
 
 export interface Ingredient {
