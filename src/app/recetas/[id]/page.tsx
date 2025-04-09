@@ -7,12 +7,9 @@ import FavoriteButton from "@/components/recipe/FavoriteButton";
 export const revalidate = 3600; // Revalidar cada hora
 
 // Metadatos para SEO
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const meal = await getMealById(params.id);
+export async function generateMetadata({params}: {params: Promise<{ id: string }>}) {
+  const {id} = await params;
+  const meal = await getMealById(id);
 
   if (!meal) {
     return {
@@ -26,12 +23,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function RecipeDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const meal = await getMealById(params.id);
+export default async function RecipeDetailPage({params}: {params: Promise<{ id: string }>}) {
+  const {id} = await params;
+  const meal = await getMealById(id);
 
   if (!meal) {
     return (
