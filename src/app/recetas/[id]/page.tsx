@@ -1,20 +1,18 @@
-// app/recetas/[id]/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { getMealById, formatMealIngredients } from "@/lib/api";
 import FavoriteButton from "@/components/recipe/FavoriteButton";
 
-export const revalidate = 3600; // Revalidar datos cada hora
+export const revalidate = 3600; // Revalidar cada hora
 
-// Generar metadatos para SEO
+// Metadatos para SEO
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
-  const meal = await getMealById(id);
+  const meal = await getMealById(params.id);
 
   if (!meal) {
     return {
@@ -31,10 +29,9 @@ export async function generateMetadata({
 export default async function RecipeDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
-  const meal = await getMealById(id);
+  const meal = await getMealById(params.id);
 
   if (!meal) {
     return (
@@ -49,7 +46,6 @@ export default async function RecipeDetailPage({
 
   const ingredients = formatMealIngredients(meal);
 
-  // Dividir las instrucciones en pasos si están separadas por puntos o numeradas
   const instructionSteps = meal.strInstructions
     .split(/\r\n|\n|\r|\./)
     .filter((step) => step.trim() !== "")
@@ -141,7 +137,7 @@ export default async function RecipeDetailPage({
               <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-gray-700">
                 Preparación
               </h2>
-              <ol className="space-y-4 text-gray-700 max-h-[450px] overflow-y-auto">
+              <ol className="space-y-4 text-gray-700 max-h-[450px] overflow-y-auto pr-2">
                 {instructionSteps.map((step, index) => (
                   <li key={index} className="flex">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-earth-hard text-cream flex items-center justify-center mr-3">

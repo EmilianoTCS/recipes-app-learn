@@ -38,20 +38,22 @@ export default function RecipeCard({
   };
 
   return (
-    <div className="bg-cream rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
-      <Link href={`/recetas/${id}`}>
+    <div className="bg-cream rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 w-full">
+      <Link href={`/recetas/${id}`} className="block h-full">
         <div className="relative">
-          <div className="relative h-48 w-full">
+          <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 w-full">
             <Image
               src={imageUrl || "/api/placeholder/400/250"}
               alt={title}
               fill
               className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           </div>
           <button
             onClick={handleFavoriteClick}
-            className="absolute top-2 right-2 p-2 bg-cream bg-opacity-70 rounded-full"
+            className="absolute top-2 right-2 p-2 bg-cream bg-opacity-70 rounded-full hover:bg-opacity-90 transition-all duration-200"
+            aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
           >
             <Heart
               size={20}
@@ -61,29 +63,29 @@ export default function RecipeCard({
             />
           </button>
         </div>
-        <div className="p-2">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+        <div className="p-2 sm:p-3 md:p-4">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem]">
             {title}
           </h3>
-          <div className="grid grid-cols-2 text-sm p-2 gap-2 w-auto">
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-1 sm:gap-2 w-full">
             {category && (
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs">
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
                 {category}
               </span>
             )}
             {area && (
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs">
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
                 {area}
               </span>
             )}
             {calories && (
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs">
-                Calorías aprox: {calories}
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
+                Calorías: {calories}
               </span>
             )}
             {proteins && (
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs">
-                Proteínas aprox: {proteins}
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
+                Proteínas: {proteins}
               </span>
             )}
           </div>

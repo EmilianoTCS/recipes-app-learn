@@ -1,4 +1,3 @@
-// components/ui/SearchBar.tsx
 "use client";
 
 import { useState } from "react";
@@ -26,21 +25,23 @@ export default function SearchBar() {
   return (
     <form
       onSubmit={handleSearch}
-      className="relative mx-auto aling-center justify-center w-6xl"
+      className="w-full flex justify-center items-center px-4 mt-4"
     >
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Buscar recetas..."
-        className="p-3 w-full pl-10 border border-cream rounded-lg focus:ring-2 focus:ring-earth-light focus:border-earth-light text-cream "
-      />
-      <button
-        type="submit"
-        className="absolute inset-y-0 left-0 flex items-center pl-3"
-      >
-        <Search size={20} className="text-cream" />
-      </button>
+      <div className="relative w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Buscar recetas..."
+          className="w-full py-2.5 pl-10 pr-4 border border-cream rounded-lg focus:ring-2 focus:ring-earth-light focus:border-earth-light text-cream bg-transparent placeholder:text-cream/60"
+        />
+        <button
+          type="submit"
+          className="absolute inset-y-0 left-0 flex items-center pl-3"
+        >
+          <Search size={20} className="text-cream" />
+        </button>
+      </div>
     </form>
   );
 }
