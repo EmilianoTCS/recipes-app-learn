@@ -6,9 +6,30 @@ import FavoriteButton from "@/components/recipe/FavoriteButton";
 
 export const revalidate = 3600; // Revalidar cada hora
 
+// separador de instrucciones
+export const parseInstructions = (instructions: string): string[] => {
+  const hasNumberedSteps = /^\d+\.\s+/m.test(instructions);
+
+  if (hasNumberedSteps) {
+    return instructions
+      .split(/^\d+\.\s+/gm)
+      .filter((step) => step.trim() !== "")
+      .map((step) => step.trim().replace(/\.$/, "") + ".");
+  } else {
+    return instructions
+      .split(/\r\n|\n|\r|\./)
+      .filter((step) => step.trim() !== "")
+      .map((step) => step.trim().replace(/\.$/, "") + ".");
+  }
+};
+
 // Metadatos para SEO
-export async function generateMetadata({params}: {params: Promise<{ id: string }>}) {
-  const {id} = await params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const meal = await getMealById(id);
 
   if (!meal) {
@@ -23,8 +44,12 @@ export async function generateMetadata({params}: {params: Promise<{ id: string }
   };
 }
 
-export default async function RecipeDetailPage({params}: {params: Promise<{ id: string }>}) {
-  const {id} = await params;
+export default async function RecipeDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const meal = await getMealById(id);
 
   if (!meal) {
@@ -40,10 +65,7 @@ export default async function RecipeDetailPage({params}: {params: Promise<{ id: 
 
   const ingredients = formatMealIngredients(meal);
 
-  const instructionSteps = meal.strInstructions
-    .split(/\r\n|\n|\r|\./)
-    .filter((step) => step.trim() !== "")
-    .map((step) => step.trim() + (step.endsWith(".") ? "" : "."));
+  const instructionSteps = parseInstructions(meal.strInstructions);
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -85,8 +107,8 @@ export default async function RecipeDetailPage({params}: {params: Promise<{ id: 
                   {tag.trim()}
                 </span>
               ))}
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
-               {meal.calories} Calorías
+            <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
+              {meal.calories} Calorías
             </span>
             <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
               {meal.proteins} Proteínas
