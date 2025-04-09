@@ -70,7 +70,7 @@ export default function RecipeGrid({ query = '', category = '' }: RecipeGridProp
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5">
       {meals.map(meal => (
         <RecipeCard
           key={meal.idMeal}
@@ -82,6 +82,8 @@ export default function RecipeGrid({ query = '', category = '' }: RecipeGridProp
           calories={meal.calories}
           proteins={meal.proteins}
           isFavorite={favorites.includes(meal.idMeal)}
+          dificulty={meal.dificulty}
+          time={meal.time}
           onToggleFavorite={handleToggleFavorite}
         />
       ))}

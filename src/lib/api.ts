@@ -9,7 +9,7 @@ const Gemini_AI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 /**
  * Obtiene una lista de 20 comidas aleatorias
  */
-export async function getRandomMeals(count: number = 20): Promise<Meal[]> {
+export async function getRandomMeals(count: number = 12): Promise<Meal[]> {
   const meals: Meal[] = [];
   const promises = [];
 
@@ -39,7 +39,9 @@ export async function getRandomMeals(count: number = 20): Promise<Meal[]> {
   }
 
   // Crear el prompt para Gemini AI
-  const prompt = `Devuelve la cantidad aproximada de las calorías y proteínas de cada comida. no escribas nada más. Sin introducción, solamente los resultados solicitados (calorías y proteínas), no necesito ninguna información extra. además, quita todos los caracteres inncesarios y espacios en blanco el formato debe ser retornado debe ser {idMeal: id del meal original, calories: calorias calculadas, proteins: proteinas calculadas} también quita TODO caracter innecesario,como el Template literals o backtick. solamente retorna el JSON. aquí están las comidas: ${JSON.stringify(meals)}`;
+  const prompt = `Devuelve la cantidad aproximada de las calorías, proteínas (junto con sus unidades) y la dificultad (en español) y el tiempo aproximado de cocción de cada comida. no escribas nada más. Sin introducción, solamente los resultados solicitados (calorías y proteínas), no necesito ninguna información extra. además, quita todos los caracteres inncesarios y espacios en blanco el formato debe ser retornado debe ser {idMeal: id del meal original, calories: calorias calculadas, proteins: proteinas calculadas, dificulty: dificultad, time: tiempo} también quita TODO caracter innecesario,como el Template literals o backtick. solamente retorna el JSON. aquí están las comidas: ${JSON.stringify(
+    meals
+  )}`;
 
   // Llamar a Gemini AI con el prompt
   try {
@@ -48,15 +50,17 @@ export async function getRandomMeals(count: number = 20): Promise<Meal[]> {
     const sanitizedResponse = geminiResponse
       ? geminiResponse.replace(/`/g, "").replace(/json/gi, "")
       : "";
-    
+
     // Parsear la respuesta de Gemini AI
     let geminiAnalysis;
     try {
       geminiAnalysis = JSON.parse(sanitizedResponse || "[]");
-      console.log("Respuesta de Gemini:", geminiAnalysis);
     } catch (parseError) {
       console.error("Error al parsear la respuesta de Gemini:", parseError);
-      console.error("Respuesta sanitizada que causó el error:", sanitizedResponse);
+      console.error(
+        "Respuesta sanitizada que causó el error:",
+        sanitizedResponse
+      );
       geminiAnalysis = [];
     }
 
@@ -65,23 +69,31 @@ export async function getRandomMeals(count: number = 20): Promise<Meal[]> {
       for (let i = 0; i < meals.length; i++) {
         const meal = meals[i];
         const analysis = geminiAnalysis.find(
-          (item: { idMeal: string; calories: number; proteins: number }) =>
-            item.idMeal === meal.idMeal
+          (item: {
+            idMeal: string;
+            calories: number;
+            proteins: number;
+            dificulty: string;
+            time: string;
+          }) => item.idMeal === meal.idMeal
         );
-        
+
         if (analysis) {
           // Asignación directa a las propiedades del objeto meal
           meal.calories = analysis.calories;
           meal.proteins = analysis.proteins;
+          meal.dificulty = analysis.dificulty;
+          meal.time = analysis.time;
         } else {
-          console.log(`No se encontró análisis para la comida con ID: ${meal.idMeal}`);
+          console.log(
+            `No se encontró análisis para la comida con ID: ${meal.idMeal}`
+          );
         }
       }
     } else {
       console.error("La respuesta de Gemini no es un array:", geminiAnalysis);
     }
-    
-    console.log("Meals con información nutricional:", meals);
+
     return meals;
   } catch (error) {
     console.error("Error al procesar con Gemini AI:", error);
@@ -119,23 +131,56 @@ export async function getMealsByCategory(category: string): Promise<Meal[]> {
   );
 
   const data = await res.json();
-  console.log(data);
-  console.log(`${API_BASE_URL}/filter.php?c=${encodeURIComponent(category)}`);
   return data.meals || [];
 }
 
 /**
- * Obtiene los detalles de una comida por su ID
+ * Obtiene los detalles de una comida por su ID y agrega información nutricional usando Gemini AI
  */
 export async function getMealById(id: string): Promise<MealDetails | null> {
-  const res = await fetch(`${API_BASE_URL}/lookup.php?i=${id}&a=Argentinian`);
+  const res = await fetch(`${API_BASE_URL}/lookup.php?i=${id}`);
   const data = await res.json();
 
   if (!data.meals || !data.meals[0]) {
     return null;
   }
 
-  return data.meals[0];
+  const meal = data.meals[0];
+
+  // Crear el prompt para Gemini AI
+  const prompt = `Devuelve únicamente un JSON con la cantidad aproximada de las calorías, proteínas (junto con sus unidades) y la dificultad (en español) y el tiempo aproximado de cocción de esta comida. El formato debe ser {idMeal: id del meal original, calories: calorias calculadas, proteins: proteinas calculadas, dificulty: dificultad, time: tiempo}. aquí está la comida: ${JSON.stringify(
+    meal
+  )}`;
+
+  try {
+    const geminiResponse = await GeminiQuery(prompt);
+    const sanitizedResponse = geminiResponse
+      ? geminiResponse.replace(/`/g, "").replace(/json/gi, "")
+      : "";
+
+    let geminiAnalysis;
+    try {
+      geminiAnalysis = JSON.parse(sanitizedResponse || "[]");
+    } catch (parseError) {
+      console.error("Error al parsear la respuesta de Gemini:", parseError);
+      console.error("Respuesta sanitizada:", sanitizedResponse);
+      return meal; // Retornar sin nutrición si falla el parseo
+    }
+
+    if (geminiAnalysis && geminiAnalysis.idMeal === meal.idMeal) {
+      meal.calories = geminiAnalysis.calories;
+      meal.proteins = geminiAnalysis.proteins;
+      meal.dificulty = geminiAnalysis.dificulty;
+      meal.time = geminiAnalysis.time;
+    } else {
+      console.warn("La respuesta de Gemini no coincide con el ID del meal.");
+    }
+
+    return meal;
+  } catch (error) {
+    console.error("Error al procesar con Gemini AI:", error);
+    return meal;
+  }
 }
 
 /**

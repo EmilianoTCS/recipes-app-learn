@@ -85,6 +85,15 @@ export default async function RecipeDetailPage({params}: {params: Promise<{ id: 
                   {tag.trim()}
                 </span>
               ))}
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
+               {meal.calories} Calorías
+            </span>
+            <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
+              {meal.proteins} Proteínas
+            </span>
+            <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-sm">
+              {meal.time}
+            </span>
           </div>
 
           <h1 className="text-3xl font-bold text-gray-800 mb-4">

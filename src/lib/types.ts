@@ -6,8 +6,10 @@ export interface Meal {
   strArea: string;
   strMealThumb: string;
   strTags?: string;
-  proteins: number;
-  calories: number;
+  proteins: string;
+  calories: string;
+  dificulty: string;
+  time: string
 }
 
 // TheMealDB tiene 20 propiedades posibles para ingredientes y medidas
@@ -55,6 +57,10 @@ export interface MealDetails extends Meal {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
+  proteins: string;
+  calories: string;
+  dificulty: string;
+  time: string
   [key: string]: string | number | undefined;
 }
 

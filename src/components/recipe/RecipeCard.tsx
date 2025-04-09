@@ -9,9 +9,11 @@ interface RecipeCardProps {
   imageUrl: string;
   category: string;
   area: string;
-  calories: number;
-  proteins: number;
+  calories: string;
+  proteins: string;
   isFavorite?: boolean;
+  dificulty?: string;
+  time?: string;
   onToggleFavorite?: (id: string) => void;
 }
 
@@ -23,6 +25,8 @@ export default function RecipeCard({
   area,
   calories,
   proteins,
+  dificulty,
+  time,
   isFavorite = false,
   onToggleFavorite,
 }: RecipeCardProps) {
@@ -64,10 +68,11 @@ export default function RecipeCard({
           </button>
         </div>
         <div className="p-2 sm:p-3 md:p-4">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] flex items-center">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-800  line-clamp-2 min-h-[3.5rem] mb-2">
             {title}
-            </h3>
-          <div className="grid md:grid-cols-2 xs:grid-cols-2 gap-1 sm:gap-2 w-full">
+          </h3>
+
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-1 sm:gap-2 w-full">
             {category && (
               <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
                 {category}
@@ -86,6 +91,16 @@ export default function RecipeCard({
             {proteins && (
               <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
                 Proteínas: {proteins}
+              </span>
+            )}
+            {dificulty && (
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
+              Dificultad: {dificulty}
+              </span>
+            )}
+            {time && (
+              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate" title={time}>
+              Tiempo aprox: {time}
               </span>
             )}
           </div>
