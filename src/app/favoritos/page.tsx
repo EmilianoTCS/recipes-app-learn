@@ -98,6 +98,8 @@ export default function FavoritesPage() {
             category={meal.strCategory}
             area={meal.strArea}
             isFavorite={true}
+            calories={meal.calories}
+            proteins={meal.proteins}
             onToggleFavorite={handleToggleFavorite}
           />
         ))}
