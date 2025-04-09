@@ -12,7 +12,6 @@ Recetitas es una aplicación que permite a los usuarios explorar una amplia vari
 - Visualización detallada de ingredientes y pasos de preparación
 - Sistema de favoritos para guardar recetas
 - Interfaz responsiva y amigable
-- Modo oscuro/claro
 
 ## 🛠️ Tecnologías utilizadas
 
@@ -90,10 +89,10 @@ recipes-app-learn/
 Las contribuciones son bienvenidas. Si deseas colaborar con este proyecto:
 
 1. Haz un fork del repositorio
-2. Crea una nueva rama (`git checkout -b feature/amazing-feature`)
+2. Crea una nueva rama (`git checkout -b feature/new-feature`)
 3. Realiza tus cambios
-4. Haz commit de tus cambios (`git commit -m 'Add some amazing feature'`)
-5. Haz push a la rama (`git push origin feature/amazing-feature`)
+4. Haz commit de tus cambios (`git commit -m 'Add some new feature'`)
+5. Haz push a la rama (`git push origin feature/new-feature`)
 6. Abre un Pull Request
 
 ## 📄 Licencia
