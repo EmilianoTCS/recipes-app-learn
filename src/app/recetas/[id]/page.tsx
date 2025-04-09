@@ -31,9 +31,10 @@ export async function generateMetadata({
 export default async function RecipeDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const meal = await getMealById(params.id);
+  const { id } = await params;
+  const meal = await getMealById(id);
 
   if (!meal) {
     return (
