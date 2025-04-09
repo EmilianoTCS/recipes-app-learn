@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { getMealById, formatMealIngredients } from "@/lib/api";
 import FavoriteButton from "@/components/recipe/FavoriteButton";
 
+
 export const revalidate = 3600; // Revalidar datos cada hora
 
 // Generar metadatos para SEO
@@ -27,13 +28,14 @@ export async function generateMetadata({
   };
 }
 
-interface RecipeDetailPageProps {
-  params: { id: string };
-}
+
+
 
 export default async function RecipeDetailPage({
   params,
-}: RecipeDetailPageProps) {
+}: {
+  params: { id: string };
+}) {
   const meal = await getMealById(params.id);
 
   if (!meal) {
