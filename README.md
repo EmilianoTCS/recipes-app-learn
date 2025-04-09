@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recetitas 
 
-## Getting Started
+Una aplicación web para buscar, descubrir y guardar recetas de cocina, desarrollada con fines educativos.
 
-First, run the development server:
+## 📋 Descripción
 
+Recetitas es una aplicación que permite a los usuarios explorar una amplia variedad de recetas, filtrarlas por categorías, ingredientes o tiempo de preparación, y guardar sus favoritas. Este proyecto ha sido desarrollado como herramienta de aprendizaje para practicar conceptos de desarrollo web.
+
+## ✨ Características principales
+
+- Búsqueda y filtrado de recetas
+- Visualización detallada de ingredientes y pasos de preparación
+- Sistema de favoritos para guardar recetas
+- Interfaz responsiva y amigable
+- Modo oscuro/claro
+
+## 🛠️ Tecnologías utilizadas
+
+- [Next.js](https://nextjs.org/) - Framework de React para aplicaciones web
+- [TypeScript](https://www.typescriptlang.org/) - Superset tipado de JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utility-first
+- API REST para obtención de datos
+- LocalStorage para persistencia de datos del usuario
+
+## 🚀 Instalación y uso
+
+### Requisitos previos
+
+- Node.js (v14.0.0 o superior)
+- npm o yarn
+
+### Pasos de instalación
+
+1. Clona este repositorio:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/EmilianoTCS/recipes-app-learn.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Navega al directorio del proyecto:
+```bash
+cd recipes-app-learn
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Instala las dependencias:
+```bash
+npm install
+# o
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+# o
+yarn dev
+```
 
-## Learn More
+5. Abre tu navegador y visita `http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Estructura del proyecto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+recipes-app-learn/
+├── public/
+│   ├── images/
+│   └── ...
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── styles/
+│   ├── types/
+│   ├── utils/
+│   └── ...
+├── tailwind.config.js
+├── tsconfig.json
+├── next.config.js
+├── package.json
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Scripts disponibles
 
-## Deploy on Vercel
+- `npm run dev`: Inicia el servidor de desarrollo
+- `npm run build`: Crea la versión para producción
+- `npm start`: Inicia la aplicación en modo producción
+- `npm run lint`: Ejecuta el linter para verificar el código
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contribuciones
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Las contribuciones son bienvenidas. Si deseas colaborar con este proyecto:
+
+1. Haz un fork del repositorio
+2. Crea una nueva rama (`git checkout -b feature/amazing-feature`)
+3. Realiza tus cambios
+4. Haz commit de tus cambios (`git commit -m 'Add some amazing feature'`)
+5. Haz push a la rama (`git push origin feature/amazing-feature`)
+6. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - mira el archivo `LICENSE` para más detalles.
+
+## 📱 Contacto
+
+Emiliano - [@EmilianoTCS](https://github.com/EmilianoTCS)
+
+Link del proyecto: [https://github.com/EmilianoTCS/recipes-app-learn](https://github.com/EmilianoTCS/recipes-app-learn)
