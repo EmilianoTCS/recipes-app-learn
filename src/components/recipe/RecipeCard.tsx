@@ -64,9 +64,9 @@ export default function RecipeCard({
           </button>
         </div>
         <div className="p-2 sm:p-3 md:p-4">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem]">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] flex items-center">
             {title}
-          </h3>
+            </h3>
           <div className="grid md:grid-cols-2 xs:grid-cols-2 gap-1 sm:gap-2 w-full">
             {category && (
               <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
