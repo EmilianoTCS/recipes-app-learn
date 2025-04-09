@@ -44,7 +44,8 @@ export async function getRandomMeals(count: number = 20): Promise<Meal[]> {
   // Llamar a Gemini AI con el prompt
   try {
     const geminiResponse = await GeminiQuery(prompt);
-    const sanitizedResponse = geminiResponse || ""
+
+    const sanitizedResponse = geminiResponse
       .replace(/`/g, "")
       .replace(/json/gi, "");
     

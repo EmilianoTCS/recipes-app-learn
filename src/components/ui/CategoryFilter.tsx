@@ -49,7 +49,9 @@ export default function CategoryFilter({
       setShowLeftScroll(scrollContainerRef.current.scrollLeft > 0);
       setShowRightScroll(
         scrollContainerRef.current.scrollLeft <
-          scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth - 10
+          scrollContainerRef.current.scrollWidth -
+            scrollContainerRef.current.clientWidth -
+            10
       );
     }
   };
@@ -71,56 +73,56 @@ export default function CategoryFilter({
   }, []);
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6">
+    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden">
       {showLeftScroll && (
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft size={20} className="text-gray-800" />
-        </button>
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
+        aria-label="Scroll left"
+      >
+        <ChevronLeft size={20} className="text-gray-800" />
+      </button>
       )}
 
       <div
-        ref={scrollContainerRef}
-        className="flex gap-2 overflow-x-auto py-2 px-1 scrollbar-hide snap-x snap-mandatory scroll-px-4"
-        onScroll={checkScrollable}
+      ref={scrollContainerRef}
+      className="flex gap-2  overflow-x-auto overflow-hidden py-2 px-1"
+      onScroll={checkScrollable}
       >
-        <button
-          onClick={() => handleCategoryChange("")}
-          className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
-            !selectedCategory
-              ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
-              : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
-          }`}
-        >
-          20 aleatorias
-        </button>
+      <button
+        onClick={() => handleCategoryChange("")}
+        className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
+        !selectedCategory
+          ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
+          : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
+        }`}
+      >
+        20 aleatorias
+      </button>
 
-        {categories.map((category) => (
-          <button
-            key={category.idCategory}
-            onClick={() => handleCategoryChange(category.strCategory)}
-            className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
-              selectedCategory === category.strCategory
-                ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
-                : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
-            }`}
-          >
-            {category.strCategory}
-          </button>
-        ))}
+      {categories.map((category) => (
+        <button
+        key={category.idCategory}
+        onClick={() => handleCategoryChange(category.strCategory)}
+        className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
+          selectedCategory === category.strCategory
+          ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
+          : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
+        }`}
+        >
+        {category.strCategory}
+        </button>
+      ))}
       </div>
 
       {showRightScroll && (
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
-          aria-label="Scroll right"
-        >
-          <ChevronRight size={20} className="text-gray-800" />
-        </button>
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
+        aria-label="Scroll right"
+      >
+        <ChevronRight size={20} className="text-gray-800" />
+      </button>
       )}
     </div>
   );
