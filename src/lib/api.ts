@@ -146,7 +146,8 @@ export async function getMealById(id: string): Promise<MealDetails | null> {
   }
 
   const meal = data.meals[0];
-  console.log(meal)
+
+  console.log("Comida obtenida:", meal);
   // Crear el prompt para Gemini AI
   const prompt = `Devuelve únicamente un JSON con la cantidad aproximada de las calorías, proteínas (junto con sus unidades) y la dificultad (en español) y el tiempo aproximado de cocción de esta comida. El formato debe ser {idMeal: id del meal original, calories: calorias calculadas, proteins: proteinas calculadas, dificulty: dificultad, time: tiempo}. aquí está la comida: ${JSON.stringify(
     meal

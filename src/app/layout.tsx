@@ -48,14 +48,14 @@ export default function RootLayout({
                     Favoritos
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link
-                    href="/ideas"
+                    href="/mireceta"
                     className="text-xl"
                   >
-                    ¡Encontrar ideas!
+                    Mis recetas
                   </Link>
-                </li> */}
+                </li>
               </ul>
             </nav>
           </div>
