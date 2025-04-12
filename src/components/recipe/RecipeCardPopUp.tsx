@@ -88,26 +88,26 @@ const RecipeCardPopUp: React.FC<RecipeCardProps> = ({ recipe, onClose }) => {
             {/* Datos de la receta */}
             <div className="flex flex-wrap gap-3 text-sm">
               {recipe.time && (
-                <div className="flex items-center gap-1 bg-earth-light/10 px-3 py-1 rounded-full">
-                  <Clock size={16} className="text-earth-hard" />
+                <div className="flex items-center gap-1 bg-earth-hard text-cream px-3 py-1 rounded-full">
+                  <Clock size={16} />
                   <span>{recipe.time}</span>
                 </div>
               )}
               {recipe.difficulty && (
-                <div className="flex items-center gap-1 bg-earth-light/10 px-3 py-1 rounded-full">
-                  <ChefHat size={16} className="text-earth-hard" />
+                <div className="flex items-center gap-1 bg-earth-hard text-cream px-3 py-1 rounded-full">
+                  <ChefHat size={16}  />
                   <span>{recipe.difficulty}</span>
                 </div>
               )}
               {recipe.calories && (
-                <div className="flex items-center gap-1 bg-earth-light/10 px-3 py-1 rounded-full">
-                  <Flame size={16} className="text-earth-hard" />
+                <div className="flex items-center gap-1 bg-earth-hard text-cream px-3 py-1 rounded-full">
+                  <Flame size={16}  />
                   <span>{recipe.calories}</span>
                 </div>
               )}
               {recipe.area && (
-                <div className="flex items-center gap-1 bg-earth-light/10 px-3 py-1 rounded-full">
-                  <Globe size={16} className="text-earth-hard" />
+                <div className="flex items-center gap-1 bg-earth-hard text-cream px-3 py-1 rounded-full">
+                  <Globe size={16}  />
                   <span>{recipe.area}</span>
                 </div>
               )}
