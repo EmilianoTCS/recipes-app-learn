@@ -50,10 +50,10 @@ export default function RootLayout({
                 </li>
                 <li>
                   <Link
-                    href="/mireceta"
+                    href="/midespensa"
                     className="text-xl"
                   >
-                    Mis recetas
+                    Mis despensa
                   </Link>
                 </li>
               </ul>

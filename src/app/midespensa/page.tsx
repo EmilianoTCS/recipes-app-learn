@@ -199,7 +199,7 @@ export default function InventoryManager() {
       <div className="max-w-6xl mx-auto max-h-100vh overflow-hidden">
         <header className="mb-8 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-cream mb-2">
-            Mi Inventario
+            Mi despensa
           </h1>
           <p className="text-cream opacity-80">
             Gestiona tus ingredientes de forma sencilla. Añade lo que tengas a
