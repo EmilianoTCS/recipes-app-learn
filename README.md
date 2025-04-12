@@ -4,7 +4,7 @@ Una aplicación web para buscar, descubrir y guardar recetas de cocina, desarrol
 
 ## 📋 Descripción
 
-Recetitas es una aplicación que permite a los usuarios explorar una amplia variedad de recetas, filtrarlas por categorías, ingredientes o tiempo de preparación, y guardar sus favoritas. Este proyecto ha sido desarrollado como herramienta de aprendizaje para practicar conceptos de desarrollo web.
+Recetitas es una aplicación que permite a los usuarios explorar una amplia variedad de recetas, filtrarlas por categorías, ingredientes o tiempo de preparación, guardarlas sus favoritas y además podrán crear una receta personalizada. Este proyecto ha sido desarrollado como herramienta de aprendizaje para practicar conceptos de desarrollo web.
 
 ## ✨ Características principales
 
@@ -12,6 +12,7 @@ Recetitas es una aplicación que permite a los usuarios explorar una amplia vari
 - Visualización detallada de ingredientes y pasos de preparación
 - Sistema de favoritos para guardar recetas
 - Interfaz responsiva y amigable
+- Recetas personalizadas en base a lo que tengas a mano
 
 ## 🛠️ Tecnologías utilizadas
 
