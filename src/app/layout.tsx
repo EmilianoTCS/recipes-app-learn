@@ -53,7 +53,7 @@ export default function RootLayout({
                     href="/midespensa"
                     className="text-xl"
                   >
-                    Mis despensa
+                    Mi despensa
                   </Link>
                 </li>
               </ul>
