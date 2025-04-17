@@ -336,6 +336,7 @@ export default function InventoryManager() {
                         className="w-full p-2 border border-earth-light rounded focus:ring focus:ring-earth-hard/30 focus:outline-none"
                         required
                       >
+                        <option selected hidden value={""}>Desplegar lista</option>
                         {unidades &&
                           unidades.map((unidad) => (
                             <option

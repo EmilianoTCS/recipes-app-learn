@@ -390,8 +390,8 @@ export default function NuevaRecetaPage() {
         dificultad: formData.dificultad,
         region: formData.region,
         categoria: formData.categoria,
-        ingredientes: ingredientesJson, 
-        pasos: pasosJson, 
+        ingredientes: ingredientesJson,
+        pasos: pasosJson,
       };
 
       // Call the function with the properly typed input
@@ -624,6 +624,9 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
+                <option selected hidden value={""}>
+                  Desplegar lista
+                </option>
                 {difficulties.map((diff: { datovisible: string }) => (
                   <option key={diff.datovisible} value={diff.datovisible}>
                     {diff.datovisible}
@@ -647,6 +650,10 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
+                <option selected hidden value={""}>
+                  Desplegar lista
+                </option>
+
                 {region.map((opcion: { datovisible: string }) => (
                   <option key={opcion.datovisible} value={opcion.datovisible}>
                     {opcion.datovisible}
@@ -670,6 +677,10 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
+                <option selected hidden value={""}>
+                  Desplegar lista
+                </option>
+
                 {categories.map((opcion: { datovisible: string }) => (
                   <option key={opcion.datovisible} value={opcion.datovisible}>
                     {opcion.datovisible}
@@ -879,6 +890,10 @@ export default function NuevaRecetaPage() {
                       }
                       className="w-full px-3 py-2 border border-earth-light rounded-md"
                     >
+                      <option selected hidden value={""}>
+                        Desplegar lista
+                      </option>
+
                       {unidades.map((opcion: { datovisible: string }) => (
                         <option
                           key={opcion.datovisible}
