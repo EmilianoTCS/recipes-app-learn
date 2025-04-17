@@ -66,9 +66,9 @@ export default function NuevaRecetaPage() {
     notas: "",
     url_video: "",
     url_imagen: "",
-    dificultad: "Fácil",
-    region: "Argentina",
-    categoria: "Plato principal",
+    dificultad: "",
+    region: "",
+    categoria: "",
     ingredientes: [
       { nombre: "", cantidad: 1, unidad: "unidad(es)", isActive: true },
     ],
