@@ -112,3 +112,23 @@ export interface confDatos {
   tipo: string;
   subtipo: string | null;
 }
+
+export interface RecetaInput {
+  nombre: string;
+  descripcion: string;
+  cant_porcion: number;
+  tiempo: string;
+  notas?: string;
+  url_video?: string;
+  url_imagen?: string;
+  dificultad: string;
+  region: string;
+  categoria: string;
+  ingredientes: string; 
+  pasos: string; 
+}
+
+export interface ResultOperation {
+  codResult: string;
+  mjeResult: string;
+}

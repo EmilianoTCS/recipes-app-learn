@@ -123,20 +123,27 @@ export default async function RecipeDetailPage({
                 Ingredientes
               </h2>
               <ul className="space-y-2">
-                {meal.ingredientes.map((ingredient) => (
-                  <li key={ingredient.id} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="mr-2 h-5 w-5 text-blue-600"
-                    />
-                    <span className="text-gray-700 flex flex-row items-center">
-                      <div>
-                        {ingredient.cantidad} {ingredient.unidad} -&nbsp;
-                      </div>
-                      <span className="font-bold">{ingredient.nombre}</span>
-                    </span>
-                  </li>
-                ))}
+                {meal.ingredientes.map(
+                  (ingredient: {
+                    id: number;
+                    cantidad: number;
+                    unidad: string;
+                    nombre: string;
+                  }) => (
+                    <li key={ingredient.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        className="mr-2 h-5 w-5 text-blue-600"
+                      />
+                      <span className="text-gray-700 flex flex-row items-center">
+                        <div>
+                          {ingredient.cantidad} {ingredient.unidad} -&nbsp;
+                        </div>
+                        <span className="font-bold">{ingredient.nombre}</span>
+                      </span>
+                    </li>
+                  )
+                )}
               </ul>
 
               {meal.video && (
@@ -161,17 +168,23 @@ export default async function RecipeDetailPage({
                 Preparación
               </h2>
               <ol className="space-y-4 text-gray-700 max-h-[450px] overflow-y-auto pr-2">
-                {meal.pasos.map((paso) => (
-                  <li key={paso.numero} className="flex">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-earth-hard text-cream flex items-center justify-center mr-3">
-                      {paso.numero}
-                    </div>
-                    <div>
-                      <h3 className="font-bold">{paso.nombre}</h3>
-                      <p className="text-sm">{paso.descripcion}</p>
-                    </div>
-                  </li>
-                ))}
+                {meal.pasos.map(
+                  (paso: {
+                    numero: number;
+                    nombre: string;
+                    descripcion: string;
+                  }) => (
+                    <li key={paso.numero} className="flex">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-earth-hard text-cream flex items-center justify-center mr-3">
+                        {paso.numero}
+                      </div>
+                      <div>
+                        <h3 className="font-bold">{paso.nombre}</h3>
+                        <p className="text-sm">{paso.descripcion}</p>
+                      </div>
+                    </li>
+                  )
+                )}
               </ol>
             </div>
           </div>

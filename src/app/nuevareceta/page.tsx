@@ -15,6 +15,8 @@ import {
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { insertarReceta, getConfDatos } from "@/lib/api";
+import { RecetaInput } from "@/lib/types";
+
 // Tipos para los datos del formulario
 type Ingrediente = {
   nombre: string;
@@ -46,30 +48,6 @@ type RecetaFormData = {
 };
 
 // Opciones para los selectores
-
-const opcionesCategoria = [
-  "Plato principal",
-  "Entrada",
-  "Postre",
-  "Bebida",
-  "Guarnición",
-  "Snack",
-];
-const opcionesUnidad = [
-  "unidad(es)",
-  "gramo(s)",
-  "kilogramo(s)",
-  "litro(s)",
-  "mililitro(s)",
-  "taza(s)",
-  "cuchara(s)",
-  "cucharita(s)",
-  "pizca(s)",
-  "diente(s)",
-  "hoja(s)",
-  "rama(s)",
-  "A gusto",
-];
 
 const categories = await getConfDatos("categoria", null);
 const difficulties = await getConfDatos("dificultad", null);
@@ -374,6 +352,7 @@ export default function NuevaRecetaPage() {
       new URL(url);
       return true;
     } catch (e) {
+      console.error(e);
       return false;
     }
   };
@@ -400,21 +379,34 @@ export default function NuevaRecetaPage() {
       const ingredientesJson = JSON.stringify(formData.ingredientes);
       const pasosJson = JSON.stringify(formData.pasos);
 
-      const response = await insertarReceta({
-        ...formData,
-        ingredientes: ingredientesJson,
-        pasos: pasosJson,
-      });
+      const recetaInput: RecetaInput = {
+        nombre: formData.nombre,
+        descripcion: formData.descripcion,
+        cant_porcion: formData.cant_porcion,
+        tiempo: formData.tiempo,
+        notas: formData.notas,
+        url_video: formData.url_video,
+        url_imagen: formData.url_imagen,
+        dificultad: formData.dificultad,
+        region: formData.region,
+        categoria: formData.categoria,
+        ingredientes: ingredientesJson, 
+        pasos: pasosJson, 
+      };
 
-      if (response.codResult !== "00") {
-        throw new Error("Error al guardar la receta", response.mjeResult);
+      // Call the function with the properly typed input
+      const response = await insertarReceta(recetaInput);
+
+      if (!response || response.codResult !== "00") {
+        if (!response) {
+          throw new Error("Error al guardar la receta: respuesta nula");
+        }
+        throw new Error(`Error al guardar la receta: ${response.mjeResult}`);
       } else {
         setSuccessMessage("¡Receta guardada con éxito!");
       }
 
       setTimeout(() => {
-        // router.push("/recetas");
-        // O resetear el formulario
         setFormData({
           nombre: "",
           descripcion: "",
@@ -632,7 +624,7 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
-                {difficulties.map((diff) => (
+                {difficulties.map((diff: { datovisible: string }) => (
                   <option key={diff.datovisible} value={diff.datovisible}>
                     {diff.datovisible}
                   </option>
@@ -655,7 +647,7 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
-                {region.map((opcion) => (
+                {region.map((opcion: { datovisible: string }) => (
                   <option key={opcion.datovisible} value={opcion.datovisible}>
                     {opcion.datovisible}
                   </option>
@@ -678,7 +670,7 @@ export default function NuevaRecetaPage() {
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-earth-light rounded-md"
               >
-                {categories.map((opcion) => (
+                {categories.map((opcion: { datovisible: string }) => (
                   <option key={opcion.datovisible} value={opcion.datovisible}>
                     {opcion.datovisible}
                   </option>
@@ -887,8 +879,11 @@ export default function NuevaRecetaPage() {
                       }
                       className="w-full px-3 py-2 border border-earth-light rounded-md"
                     >
-                      {unidades.map((opcion) => (
-                        <option key={opcion.datovisible} value={opcion.datovisible}>
+                      {unidades.map((opcion: { datovisible: string }) => (
+                        <option
+                          key={opcion.datovisible}
+                          value={opcion.datovisible}
+                        >
                           {opcion.datovisible}
                         </option>
                       ))}

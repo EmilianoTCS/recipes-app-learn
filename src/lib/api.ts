@@ -2,6 +2,9 @@
 import { Meal } from "./types";
 import { GoogleGenAI } from "@google/genai";
 import { supabase } from "./utils/supabaseClient";
+import { RecetaInput, ResultOperation } from "./types";
+
+
 
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -355,7 +358,10 @@ export async function getRecetasById(id: number) {
     return data; // Retornar sin nutrición en caso de error
   }
 }
-export async function insertarReceta(body: any) {
+
+
+
+export async function insertarReceta(body: RecetaInput): Promise<ResultOperation | null> {
   const { data, error } = await supabase.rpc("sp_insertar_receta", {
     nombre: body.nombre,
     descripcion: body.descripcion,
