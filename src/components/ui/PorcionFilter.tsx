@@ -73,47 +73,44 @@ export default function CategoryFilter({
   }, []);
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden ">
-      <h2 className="text-md sm:text-xl font-semibold text-cream ">
-        Categoría
-      </h2>
+    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden">
       {showLeftScroll && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 bg-earth-light rounded-full p-1 shadow- z-10 shadow-black hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard sm:block cursor-pointer"
+          className="absolute left-0 top-1/2 -translate-y-5.5 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
           aria-label="Scroll left"
         >
-          <ChevronLeft size={20} className="text-gray-800 hover:text-cream" />
+          <ChevronLeft size={20} className="text-gray-800" />
         </button>
       )}
 
       <div
         ref={scrollContainerRef}
-        className="flex gap-1 max-w-110 mx-auto overflow-y-hidden overflow-x-hidden py-2 px-1"
+        className="flex gap-1 overflow-x-auto overflow-y-hidden py-2 px-1 scrollbar-hide"
         onScroll={checkScrollable}
       >
         <button
           onClick={() => handleCategoryChange("")}
           className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
-            !selectedCategory
-              ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
-              : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
+        !selectedCategory
+          ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
+          : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
           }`}
         >
-          Todas
+          12 aleatorias
         </button>
 
         {categories.map((category) => (
           <button
-            key={category.datovisible}
-            onClick={() => handleCategoryChange(category.datovisible)}
-            className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
-              selectedCategory === category.datovisible
-                ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
-                : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
-            }`}
+        key={category.datovisible}
+        onClick={() => handleCategoryChange(category.datovisible)}
+        className={`px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all whitespace-nowrap flex-shrink-0 snap-start ${
+          selectedCategory === category.datovisible
+            ? "bg-earth-hard text-gray-200 hover:-translate-y-1"
+            : "bg-cream text-gray-800 hover:bg-earth-light hover:-translate-y-1"
+        }`}
           >
-            {category.datovisible}
+        {category.datovisible}
           </button>
         ))}
       </div>
@@ -121,10 +118,10 @@ export default function CategoryFilter({
       {showRightScroll && (
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block hover:text-cream cursor-pointer"
+          className="absolute right-0 top-1/2 -translate-y-5.5 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block"
           aria-label="Scroll right"
         >
-          <ChevronRight size={20} className="text-gray-800 hover:text-cream" />
+          <ChevronRight size={20} className="text-gray-800" />
         </button>
       )}
     </div>

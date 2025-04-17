@@ -1,52 +1,55 @@
 // components/recipe/RecipeGrid.tsx
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard';
-import { getRandomMeals, searchMealsByName, getMealsByCategory } from '@/lib/api';
-import { Meal } from '@/lib/types';
-import { useLocalStorage } from '@/lib/hooks';
+import { useState, useEffect } from "react";
+import RecipeCard from "./RecipeCard";
+import { getRecetas } from "@/lib/api";
+import { Meal } from "@/lib/types";
+import { useLocalStorage } from "@/lib/hooks";
 
 interface RecipeGridProps {
   query?: string;
   category?: string;
+  region?: string;
+  difficulty?: string;
+  porcion?: number | null;
 }
 
-export default function RecipeGrid({ query = '', category = '' }: RecipeGridProps) {
+export default function RecipeGrid({
+  category = "",
+  region = "",
+  difficulty = "",
+  porcion = null,
+}: RecipeGridProps) {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [favorites, setFavorites] = useLocalStorage<string[]>('favoriteRecipes', []);
+  const [favorites, setFavorites] = useLocalStorage<number[]>(
+    "favoriteRecipes",
+    []
+  );
 
   useEffect(() => {
     async function loadMeals() {
       setLoading(true);
       try {
         let fetchedMeals: Meal[] = [];
-        
-        if (query) {
-          fetchedMeals = await searchMealsByName(query);
-        } else if (category) {
-          fetchedMeals = await getMealsByCategory(category);
-        } else {
-          fetchedMeals = await getRandomMeals();
-        }
-        
+        fetchedMeals = await getRecetas(difficulty, category, region, porcion);
         setMeals(fetchedMeals);
       } catch (error) {
-        console.error('Error fetching meals:', error);
+        console.error("Error fetching meals:", error);
       } finally {
         setLoading(false);
       }
     }
-    
-    loadMeals();
-  }, [query, category]);
 
-  const handleToggleFavorite = (id: string) => {
-    setFavorites(prev => 
-      prev.includes(id) 
-        ? prev.filter(favId => favId !== id) 
-        : [...prev, id]
+    loadMeals();
+  }, [category, region, difficulty, porcion]);
+
+  const handleToggleFavorite = (id_receta: number) => {
+    setFavorites((prev) =>
+      prev.includes(id_receta)
+        ? prev.filter((favId) => favId !== id_receta)
+        : [...prev, id_receta]
     );
   };
 
@@ -54,7 +57,10 @@ export default function RecipeGrid({ query = '', category = '' }: RecipeGridProp
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {[...Array(8)].map((_, i) => (
-          <div key={i} className="bg-gray-100 h-64 rounded-lg animate-pulse"></div>
+          <div
+            key={i}
+            className="bg-gray-100 h-64 rounded-lg animate-pulse"
+          ></div>
         ))}
       </div>
     );
@@ -63,27 +69,31 @@ export default function RecipeGrid({ query = '', category = '' }: RecipeGridProp
   if (meals.length === 0) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-gray-700">No se encontraron recetas</h2>
-        <p className="mt-2 text-gray-500">Intenta con otra búsqueda o categoría</p>
+        <h2 className="text-xl font-semibold text-cream">
+          No se encontraron recetas
+        </h2>
+        <p className="mt-2 text-earth-light">
+          Intenta con otra búsqueda o categoría
+        </p>
       </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5">
-      {meals.map(meal => (
+      {meals.map((meal) => (
         <RecipeCard
-          key={meal.idMeal}
-          id={meal.idMeal}
-          title={meal.strMeal}
-          imageUrl={meal.strMealThumb}
-          category={meal.strCategory}
-          area={meal.strArea}
+          key={meal.id_receta}
+          id={meal.id_receta}
+          title={meal.nombre}
+          imageUrl={meal.url_imagen}
+          category={meal.categoria}
+          area={meal.region}
           calories={meal.calories}
           proteins={meal.proteins}
-          isFavorite={favorites.includes(meal.idMeal)}
-          dificulty={meal.dificulty}
-          time={meal.time}
+          isFavorite={favorites.includes(meal.id_receta)}
+          dificulty={meal.dificultad}
+          time={meal.tiempo}
           onToggleFavorite={handleToggleFavorite}
         />
       ))}

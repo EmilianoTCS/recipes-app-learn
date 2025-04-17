@@ -1,20 +1,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart } from "lucide-react";
+import { Heart, Package } from "lucide-react";
 
 interface RecipeCardProps {
-  id: string;
+  id: number;
   title: string;
-  imageUrl: string;
-  category: string;
-  area: string;
+  imageUrl?: string | null;
+  category?: string;
+  area?: string;
   calories: string;
   proteins: string;
   isFavorite?: boolean;
   dificulty?: string;
   time?: string;
-  onToggleFavorite?: (id: string) => void;
+  onToggleFavorite?: (id: number) => void;
 }
 
 export default function RecipeCard({
@@ -46,13 +46,34 @@ export default function RecipeCard({
       <Link href={`/recetas/${id}`} className="block h-full">
         <div className="relative">
           <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 w-full">
-            <Image
+            { imageUrl ? 
+              (<Image
               src={imageUrl || "/api/placeholder/400/250"}
               alt={title}
               fill
               className="object-cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            />
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                // Oculta la imagen rota
+                target.style.display = "none";
+                // Muestra un contenedor de fallback en su lugar
+                const fallbackContainer = target.nextElementSibling;
+                if (fallbackContainer) {
+                  fallbackContainer.classList.remove("hidden");
+                }
+              }}
+            />) : null}
+            <div
+              className={`w-full h-full bg-earth-light/20 flex items-center justify-center absolute inset-0 ${
+                imageUrl ? "hidden" : ""
+              }`}
+            >
+              <Package size={64} className="text-earth-hard/40" />
+              <span className="ml-2 text-earth-hard/60">
+                Imagen no disponible
+              </span>
+            </div>
           </div>
           <button
             onClick={handleFavoriteClick}
@@ -95,12 +116,15 @@ export default function RecipeCard({
             )}
             {dificulty && (
               <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate">
-              Dificultad: {dificulty}
+                Dificultad: {dificulty}
               </span>
             )}
             {time && (
-              <span className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate" title={time}>
-              Tiempo aprox: {time}
+              <span
+                className="px-2 py-1 bg-earth-hard text-cream rounded-full text-xs truncate"
+                title={time}
+              >
+                Tiempo aprox: {time}
               </span>
             )}
           </div>

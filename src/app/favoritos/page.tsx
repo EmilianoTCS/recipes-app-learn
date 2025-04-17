@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLocalStorage } from "@/lib/hooks";
-import { getMealById } from "@/lib/api";
+import { getRecetasById } from "@/lib/api";
 import { MealDetails } from "@/lib/types";
 import RecipeCard from "@/components/recipe/RecipeCard";
 
@@ -16,7 +16,7 @@ export default function FavoritesPage() {
     async function loadFavorites() {
       setLoading(true);
       try {
-        const promises = favorites.map((id) => getMealById(id));
+        const promises = favorites.map((id) => getRecetasById(parseInt(id)));
         const results = await Promise.all(promises);
         setFavoriteMeals(results.filter(Boolean) as MealDetails[]);
       } catch (error) {
@@ -29,12 +29,12 @@ export default function FavoritesPage() {
     loadFavorites();
   }, [favorites]);
 
-  const handleToggleFavorite = (id: string) => {
+  const handleToggleFavorite = (id: number) => {
     const updatedFavorites = favorites.filter(
-      (favoriteId) => favoriteId !== id
+      (favoriteId) => parseInt(favoriteId) !== id
     );
     localStorage.setItem("favoriteRecipes", JSON.stringify(updatedFavorites));
-    setFavoriteMeals(favoriteMeals.filter((meal) => meal.idMeal !== id));
+    setFavoriteMeals(favoriteMeals.filter((meal) => meal.id !== id));
   };
 
   const Title = () => (
@@ -68,7 +68,8 @@ export default function FavoritesPage() {
             No tienes favoritas
           </h2>
           <p className="text-sm sm:text-base text-earth-light mb-6">
-            Agrega algunas haciendo click en el corazón de las recetas que te gusten
+            Agrega algunas haciendo click en el corazón de las recetas que te
+            gusten
           </p>
           <Link
             href="/"
@@ -80,19 +81,18 @@ export default function FavoritesPage() {
       </main>
     );
   }
-
   return (
     <main className="min-h-screen max-w-screen-xl mx-auto px-4 py-8">
       <Title />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {favoriteMeals.map((meal) => (
           <RecipeCard
-            key={meal.idMeal}
-            id={meal.idMeal}
-            title={meal.strMeal}
-            imageUrl={meal.strMealThumb}
-            category={meal.strCategory}
-            area={meal.strArea}
+            key={meal.id}
+            id={meal.id}
+            title={meal.nombre}
+            imageUrl={meal.imagen}
+            category={meal.categoria}
+            area={meal.region}
             isFavorite={true}
             calories={meal.calories}
             proteins={meal.proteins}

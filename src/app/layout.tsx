@@ -29,16 +29,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${libreBaskerville.className} bg-earth min-h-screen flex flex-col`}>
+      <body
+        className={`${libreBaskerville.className} bg-earth min-h-screen flex flex-col`}
+      >
         <header className="bg-earth-light shadow-sm">
           <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
-            <Link href="/" className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-0">
+            <Link
+              href="/"
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-0"
+            >
               Recetitas 🍴
             </Link>
             <nav className="w-full sm:w-auto">
               <ul className="flex justify-center sm:justify-end space-x-4 sm:space-x-6">
                 <li>
-                  <Link href="/" className="text-lg sm:text-xl hover:text-earth-hard transition-colors">Inicio</Link>
+                  <Link
+                    href="/"
+                    className="text-lg sm:text-xl hover:text-earth-hard transition-colors"
+                  >
+                    Inicio
+                  </Link>
                 </li>
                 <li>
                   <Link
@@ -49,11 +59,13 @@ export default function RootLayout({
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/midespensa"
-                    className="text-xl"
-                  >
+                  <Link href="/midespensa" className="text-xl">
                     Mi despensa
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/nuevareceta" className="text-xl">
+                    Subir mi receta
                   </Link>
                 </li>
               </ul>
@@ -61,15 +73,15 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
 
         <footer className="bg-earth-hard text-gray-200 py-6 sm:py-8 mt-8 sm:mt-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
               <div className="text-center sm:text-left">
-                <h3 className="text-xl font-semibold mb-3 sm:mb-4">Recetitas</h3>
+                <h3 className="text-xl font-semibold mb-3 sm:mb-4">
+                  Recetitas
+                </h3>
                 <p className="text-gray-300 text-sm sm:text-base">
                   Descubre recetas deliciosas de todo el mundo y encuentra
                   inspiración para tu próxima comida.
@@ -110,7 +122,7 @@ export default function RootLayout({
             <div className="border-t border-gray-700 mt-6 sm:mt-8 pt-4 sm:pt-6 text-center text-gray-400 text-xs sm:text-sm">
               <p>
                 {new Date().getFullYear()} Recetitas. Los datos fueron
-                proporcionados por TheMealDB con integración de Gemini API.
+                recolectados en internet y cuenta con integración de Gemini API.
               </p>
             </div>
           </div>
