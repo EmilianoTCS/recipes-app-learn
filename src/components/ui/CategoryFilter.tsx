@@ -18,14 +18,13 @@ export default function CategoryFilter({
   const searchParams = useSearchParams();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftScroll, setShowLeftScroll] = useState(false);
-  const [showRightScroll, setShowRightScroll] = useState(true);
+  const [showRightScroll, setShowRightScroll] = useState(false);
 
   const handleCategoryChange = (category: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (category) {
       params.set("category", category);
-      // Reset query when choosing a category
       params.delete("query");
     } else {
       params.delete("category");
@@ -46,22 +45,18 @@ export default function CategoryFilter({
 
   const checkScrollable = () => {
     if (scrollContainerRef.current) {
-      setShowLeftScroll(scrollContainerRef.current.scrollLeft > 0);
-      setShowRightScroll(
-        scrollContainerRef.current.scrollLeft <
-          scrollContainerRef.current.scrollWidth -
-            scrollContainerRef.current.clientWidth -
-            10
-      );
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowLeftScroll(scrollLeft > 0);
+      setShowRightScroll(scrollLeft < scrollWidth - clientWidth);
     }
   };
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (container) {
+      checkScrollable();
       container.addEventListener("scroll", checkScrollable);
       window.addEventListener("resize", checkScrollable);
-      checkScrollable();
     }
 
     return () => {
@@ -73,14 +68,12 @@ export default function CategoryFilter({
   }, []);
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden ">
-      <h2 className="text-md sm:text-xl font-semibold text-cream ">
-        Categoría
-      </h2>
+    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden">
+      <h2 className="text-md sm:text-xl font-semibold text-cream">Categoría</h2>
       {showLeftScroll && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 bg-earth-light rounded-full p-1 shadow- z-10 shadow-black hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard sm:block cursor-pointer"
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-earth-light rounded-full p-1 shadow z-10 shadow-black hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard sm:block cursor-pointer"
           aria-label="Scroll left"
         >
           <ChevronLeft size={20} className="text-gray-800 hover:text-cream" />
@@ -89,8 +82,7 @@ export default function CategoryFilter({
 
       <div
         ref={scrollContainerRef}
-        className="flex gap-1 max-w-110 mx-auto overflow-y-hidden overflow-x-hidden py-2 px-1"
-        onScroll={checkScrollable}
+        className="flex gap-1 max-w-110 mx-auto overflow-x-auto py-2 px-1 scrollbar-hide"
       >
         <button
           onClick={() => handleCategoryChange("")}
@@ -121,7 +113,7 @@ export default function CategoryFilter({
       {showRightScroll && (
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block hover:text-cream cursor-pointer"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-earth-light bg-opacity-90 rounded-full p-1 shadow-md z-10 hover:bg-earth-hard transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-earth-hard hidden sm:block hover:text-cream cursor-pointer"
           aria-label="Scroll right"
         >
           <ChevronRight size={20} className="text-gray-800 hover:text-cream" />

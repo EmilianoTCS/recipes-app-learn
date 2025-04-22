@@ -71,7 +71,7 @@ export default function DifficultyFilter({
   }, []);
 
   return (
-    <div className="relative mx-auto px-2 sm:px-4 mb-6 overflow-hidden">
+    <div className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 mb-6 overflow-hidden">
       <h2 className="text-md sm:text-xl font-semibold text-cream ">
         Dificultad
       </h2>

@@ -36,35 +36,41 @@ export default function RootLayout({
           <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
             <Link
               href="/"
-              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-0"
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-0 hover:-translate-y-1 transition-transform duration-300"
             >
               Recetitas 🍴
             </Link>
             <nav className="w-full sm:w-auto">
-              <ul className="flex justify-center sm:justify-end space-x-4 sm:space-x-6">
-                <li>
+              <ul className="flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-6">
+                <li className="hover:-translate-y-1 transition-transform duration-300">
                   <Link
                     href="/"
-                    className="text-lg sm:text-xl hover:text-earth-hard transition-colors"
+                    className="text-base sm:text-lg hover:text-earth-hard transition-colors"
                   >
                     Inicio
                   </Link>
                 </li>
-                <li>
+                <li className="hover:-translate-y-1 transition-transform duration-300">
                   <Link
                     href="/favoritos"
-                    className="text-lg sm:text-xl hover:text-earth-hard transition-colors"
+                    className="text-base sm:text-lg hover:text-earth-hard transition-colors"
                   >
                     Favoritos
                   </Link>
                 </li>
-                <li>
-                  <Link href="/midespensa" className="text-xl">
+                <li className="hover:-translate-y-1 transition-transform duration-300">
+                  <Link
+                    href="/midespensa"
+                    className="text-base sm:text-lg hover:text-earth-hard transition-colors"
+                  >
                     Mi despensa
                   </Link>
                 </li>
-                <li>
-                  <Link href="/nuevareceta" className="text-xl">
+                <li className="hover:-translate-y-1 transition-transform duration-300">
+                  <Link
+                    href="/nuevareceta"
+                    className="text-base sm:text-lg hover:text-earth-hard transition-colors"
+                  >
                     Subir mi receta
                   </Link>
                 </li>
