@@ -183,8 +183,8 @@ export default function InventoryManager() {
     
     \`\`\`json
     {
-      "title": "Título de la receta",
       "description": "Descripción de la receta",
+      "title": "Título de la receta",
       "image": "URL_IMAGEN_PÚBLICA_Y_ACCESIBLE",
       "video": "URL_VIDEO_YOUTUBE_DISPONIBLE_O_NULL_O_VACÍO",
       "instructions": "0. Paso uno. 1. Paso dos. 2. Paso tres.",

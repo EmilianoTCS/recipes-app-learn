@@ -81,6 +81,7 @@ export default function FavoritesPage() {
       </main>
     );
   }
+  
   return (
     <main className="min-h-screen max-w-screen-xl mx-auto px-4 py-8">
       <Title />
