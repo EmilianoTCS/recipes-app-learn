@@ -66,17 +66,17 @@ export default async function RecipeDetailPage({
               fill
               className="object-cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              priority // Añade priority si esta imagen es importante para LCP
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                // Oculta la imagen rota
-                target.style.display = "none";
-                // Muestra un contenedor de fallback en su lugar
-                const fallbackContainer = target.nextElementSibling;
-                if (fallbackContainer) {
-                  fallbackContainer.classList.remove("hidden");
-                }
-              }}
+              // priority // Añade priority si esta imagen es importante para LCP
+              // onError={(e) => {
+              //   const target = e.target as HTMLImageElement;
+              //   // Oculta la imagen rota
+              //   target.style.display = "none";
+              //   // Muestra un contenedor de fallback en su lugar
+              //   const fallbackContainer = target.nextElementSibling;
+              //   if (fallbackContainer) {
+              //     fallbackContainer.classList.remove("hidden");
+              //   }
+              // }}
             />
           ) : null}{" "}
           <div
